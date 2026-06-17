@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 if (!isset($_SESSION['user_id'])) {
@@ -12,19 +11,30 @@ if (!isset($_SESSION['user_id'])) {
 <html>
 <head>
     <title>Dashboard</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h1>Welcome, <?php echo $_SESSION['username']; ?>!</h1>
+<div class="container mt-5">
 
-<a href="posts/create.php">Create Post</a>
+    <h1 class="mb-4">
+        Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
+    </h1>
 
-<br><br>
+    <a href="posts/create.php" class="btn btn-success me-2">
+        Create Post
+    </a>
 
-<a href="posts/view.php">View Posts</a>
+    <a href="posts/view.php" class="btn btn-primary me-2">
+        View Posts
+    </a>
 
-<br><br>
+    <a href="auth/logout.php" class="btn btn-danger">
+        Logout
+    </a>
 
-<a href="auth/logout.php">Logout</a>
+</div>
+
 </body>
 </html>
