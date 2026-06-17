@@ -1,9 +1,14 @@
 <?php
 session_start();
 
+if(!isset($_SESSION['user_id'])){
+    header("Location: ../auth/login.php");
+    exit();
+}
+
 include '../config/db.php';
 
-$id = $_GET['id'];
+$id = intval($_GET['id']);
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 

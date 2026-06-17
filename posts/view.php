@@ -142,12 +142,16 @@ $totalPages = ceil($totalRows / $limit);
                         Edit
                     </a>
 
-                    <a
-                        href="delete.php?id=<?php echo $row['id']; ?>"
-                        class="btn btn-danger btn-sm"
-                        onclick="return confirm('Delete this post?')">
-                        Delete
-                    </a>
+                   <?php if($_SESSION['role'] == 'admin'): ?>
+
+<a
+href="delete.php?id=<?php echo $row['id']; ?>"
+class="btn btn-danger btn-sm"
+onclick="return confirm('Delete this post?')">
+Delete
+</a>
+
+<?php endif; ?>
 
                 </div>
 

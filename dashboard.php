@@ -18,10 +18,17 @@ if (!isset($_SESSION['user_id'])) {
 
 <div class="container mt-5">
 
-    <h1 class="mb-4">
-        Welcome, <?php echo htmlspecialchars($_SESSION['username']); ?>!
-    </h1>
+   <h1>
+Welcome,
+<?php echo htmlspecialchars($_SESSION['username']); ?>
+</h1>
 
+<p>
+Role:
+<strong>
+<?php echo htmlspecialchars($_SESSION['role']); ?>
+</strong>
+</p>
     <a href="posts/create.php" class="btn btn-success me-2">
         Create Post
     </a>
