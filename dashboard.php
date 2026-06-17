@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: auth/login.php");
     exit();
@@ -18,28 +20,41 @@ if (!isset($_SESSION['user_id'])) {
 
 <div class="container mt-5">
 
-   <h1>
-Welcome,
-<?php echo htmlspecialchars($_SESSION['username']); ?>
-</h1>
+    <div class="card shadow">
+        <div class="card-body">
 
-<p>
-Role:
-<strong>
-<?php echo htmlspecialchars($_SESSION['role']); ?>
-</strong>
-</p>
-    <a href="posts/create.php" class="btn btn-success me-2">
-        Create Post
-    </a>
+            <h1 class="mb-3">
+                Welcome,
+                <?php echo htmlspecialchars($_SESSION['username']); ?>!
+            </h1>
 
-    <a href="posts/view.php" class="btn btn-primary me-2">
-        View Posts
-    </a>
+            <p class="fs-5">
+                Role:
+                <strong class="text-primary">
+                    <?php
+                    echo isset($_SESSION['role'])
+                        ? htmlspecialchars($_SESSION['role'])
+                        : 'Not Assigned';
+                    ?>
+                </strong>
+            </p>
 
-    <a href="auth/logout.php" class="btn btn-danger">
-        Logout
-    </a>
+            <hr>
+
+            <a href="posts/create.php" class="btn btn-success me-2">
+                Create Post
+            </a>
+
+            <a href="posts/view.php" class="btn btn-primary me-2">
+                View Posts
+            </a>
+
+            <a href="auth/logout.php" class="btn btn-danger">
+                Logout
+            </a>
+
+        </div>
+    </div>
 
 </div>
 

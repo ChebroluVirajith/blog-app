@@ -142,7 +142,7 @@ $totalPages = ceil($totalRows / $limit);
                         Edit
                     </a>
 
-                   <?php if($_SESSION['role'] == 'admin'): ?>
+                 <?php if(isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
 
 <a
 href="delete.php?id=<?php echo $row['id']; ?>"

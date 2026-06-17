@@ -12,7 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = trim($_POST['username']);
     $password = $_POST['password'];
 
-    $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt = $conn->prepare(
+        "SELECT * FROM users WHERE username = ?"
+    );
+
     $stmt->bind_param("s", $username);
     $stmt->execute();
 
@@ -22,14 +25,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $user = $result->fetch_assoc();
 
+        
         if (password_verify($password, $user['password'])) {
 
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['username'] = $user['username'];
+
+            // Store role in session
             $_SESSION['role'] = $user['role'];
 
             header("Location: ../dashboard.php");
             exit();
+
         } else {
             $message = "Invalid Password";
         }
@@ -44,22 +51,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 <head>
     <title>Login</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<h2>Login</h2>
+<div class="container mt-5">
 
-<form method="POST">
-    <input type="text" name="username" placeholder="Username" required>
-    <br><br>
+    <h2>Login</h2>
 
-    <input type="password" name="password" placeholder="Password" required>
-    <br><br>
+    <?php if (!empty($message)): ?>
+        <div class="alert alert-danger">
+            <?php echo htmlspecialchars($message); ?>
+        </div>
+    <?php endif; ?>
 
-    <button type="submit">Login</button>
-</form>
+    <form method="POST">
 
-<p><?php echo $message; ?></p>
+        <div class="mb-3">
+            <input
+                type="text"
+                name="username"
+                class="form-control"
+                placeholder="Username"
+                required>
+        </div>
+
+        <div class="mb-3">
+            <input
+                type="password"
+                name="password"
+                class="form-control"
+                placeholder="Password"
+                required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Login
+        </button>
+
+    </form>
+
+</div>
 
 </body>
 </html>
